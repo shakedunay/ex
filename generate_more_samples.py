@@ -1,25 +1,45 @@
+import sys
 import os
 from utils import *
 import shutil
 from keras.preprocessing.image import ImageDataGenerator, array_to_img, img_to_array, load_img
 import random
 
-ad_id_to_num_of_samples = {
-    1521: 512,
-    1703: 282,
-    1707: 255,
-    1729: 425,
-    1751: 204,
-    1755: 1532,
-    1837: 54,
-    2037: 54,
-    2525: 44,
-    2526: 17,
-}
+# ad_id_to_num_of_samples = {
+#     1521: 512,
+#     1703: 282,
+#     1707: 255,
+#     1729: 425,
+#     1751: 204,
+#     1755: 1532,
+#     1837: 54,
+#     2037: 54,
+#     2525: 44,
+#     2526: 17,
+# }
+# max_images = 1532
 
-max_images = 1532
-images_base_dir = 'data/per_label_joined/'
-dest_base_dir = 'data/per_label_joined_oversampling/'
+ad_id_to_num_of_samples = {
+    1521: 409,
+    1703: 225,
+    1707: 203,
+    1729: 339,
+    1751: 162,
+    1755: 1225,
+    1837: 42,
+    2037: 42,
+    2525: 35,
+    2526: 13,
+}
+max_images = 1225
+
+images_base_dir = sys.argv[1]
+
+dest_base_dir = os.path.join(
+    images_base_dir,
+    'oversampling',
+)
+
 for ad_id in ad_id_to_num_of_samples:
     # os.system(
     #     'rm -r {dest_base_dir}; cp -R {images_base_dir} {dest_base_dir}'.format(

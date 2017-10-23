@@ -12,6 +12,10 @@ def main():
         feature_extractor = VGG16LastConvFeatureExtractor()
     elif model_name == 'inception_v3':
         feature_extractor = InceptionV3FeatureExtractor()
+    elif model_name == 'resnet50_last_conv':
+        feature_extractor = Resnet50LastConvFeatureExtractor()
+    elif model_name == 'resnet50':
+        feature_extractor = Resnet50FeatureExtractor()
     else:
         raise Exception('invalid model name')
     run_extractor_on_folder(feature_extractor, images_dir, bottleneck_output_dir)
