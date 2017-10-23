@@ -1,16 +1,6 @@
-# Combine multiple images into one.
-#
-# To install the Pillow module on Mac OS X:
-#
-# $ xcode-select --install
-# $ brew install libtiff libjpeg webp little-cms2
-# $ pip install Pillow
-#
-
 from __future__ import print_function
 import os
 
-from PIL import Image
 import collections
 from utils import *
 

@@ -1,30 +1,8 @@
-# Combine multiple images into one.
-#
-# To install the Pillow module on Mac OS X:
-#
-# $ xcode-select --install
-# $ brew install libtiff libjpeg webp little-cms2
-# $ pip install Pillow
-#
-
 from __future__ import print_function
 import os
+from utils import *
 
-from PIL import Image
 import collections
-
-def combine(files, dest_path):
-    
-    if len(files) <= 4:
-        num_tile = 2
-    else:
-        num_tile = 3
-    command = 'montage -quality 100 -tile X{num_tile} -geometry +10+10 {files} miff:- | convert miff:- -resize 1024x1024 {dest_path}'.format(
-        files=' '.join(files),
-        dest_path=dest_path,
-        num_tile=num_tile,
-    )
-    os.system(command)
 
 
 lines = open('data/train_dataset.txt').readlines()[1:]
