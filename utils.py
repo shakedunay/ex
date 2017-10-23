@@ -73,11 +73,11 @@ class InceptionV3FeatureExtractor:
         base_model = keras.applications.inception_v3.InceptionV3(
             weights='imagenet', include_top=True,
         )
-        base_model.layers.pop()
-        input = Input(shape=(self.width, self.height, 3), name='image_input')
-        x = base_model(input)
-        x = Flatten()(x)
-        self.model = Model(inputs=input, outputs=x)
+
+        self.model = Model(
+            inputs=base_model.input,
+            outputs=base_model.layers[-2].output,
+        )
     def get_features(self, img_path):
         img = image.load_img(img_path, target_size=(self.width, self.height))
         x = image.img_to_array(img)
@@ -118,18 +118,16 @@ class Resnet50FeatureExtractor:
         base_model = keras.applications.resnet50.ResNet50(
             weights='imagenet', pooling=max, include_top=True,
         )
-        base_model.layers.pop()
-
-        input = Input(shape=(self.width, self.height, 3), name='image_input')
-        x = base_model(input)
-        x = Flatten()(x)
-        self.model = Model(inputs=input, outputs=x)
+        self.model = Model(
+            inputs=base_model.input,
+            outputs=base_model.layers[-2].output,
+        )
 
     def get_features(self, img_path):
         img = image.load_img(img_path, target_size=(self.width, self.height))
         x = image.img_to_array(img)
         x = np.expand_dims(x, axis=0)
-        x = keras.applications.inception_v3.preprocess_input(x)
+        x = keras.applications.resnet50.preprocess_input(x)
 
         features = self.model.predict(x)
 
